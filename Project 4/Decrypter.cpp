@@ -1,9 +1,48 @@
-//
-//  Decrypter.cpp
-//  Project 4
-//
-//  Created by Jayant Mehra on 3/10/18.
-//  Copyright © 2018 Jayant Mehra. All rights reserved.
-//
+#include "provided.h"
+#include <string>
+#include <vector>
+using namespace std;
 
-#include <stdio.h>
+class DecrypterImpl
+{
+public:
+    bool load(string filename);
+    vector<string> crack(const string& ciphertext);
+private:
+};
+
+bool DecrypterImpl::load(string filename)
+{
+    return false;  // This compiles, but may not be correct
+}
+
+vector<string> DecrypterImpl::crack(const string& ciphertext)
+{
+    return vector<string>();  // This compiles, but may not be correct
+}
+
+//******************** Decrypter functions ************************************
+
+// These functions simply delegate to DecrypterImpl's functions.
+// You probably don't want to change any of this code.
+
+Decrypter::Decrypter()
+{
+    m_impl = new DecrypterImpl;
+}
+
+Decrypter::~Decrypter()
+{
+    delete m_impl;
+}
+
+bool Decrypter::load(string filename)
+{
+    return m_impl->load(filename);
+}
+
+vector<string> Decrypter::crack(const string& ciphertext)
+{
+    return m_impl->crack(ciphertext);
+}
+
