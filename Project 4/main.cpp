@@ -7,9 +7,10 @@
 #include <random>
 #include <algorithm>
 #include <numeric>
+#include <cassert>
 using namespace std;
 
-const string WORDLIST_FILE = "wordlist.txt";
+const string WORDLIST_FILE = "/Users/jayantmehra/Desktop/Project 4/Project 4/wordlist.txt";
 
 string encrypt(string plaintext)
 {
@@ -44,6 +45,7 @@ bool decrypt(string ciphertext)
 
 int main(int argc, char* argv[])
 {
+    /*
     if (argc == 3  &&  argv[1][0] == '-')
     {
         switch (tolower(argv[1][1]))
@@ -57,9 +59,17 @@ int main(int argc, char* argv[])
                 return 1;
         }
     }
+    */
+    WordList w;
+    assert(w.loadWordList(WORDLIST_FILE));
+    assert(w.contains("grotto"));
+    cout << "Passed All Tests." << endl;
     
-    cout << "Usage to encrypt:  " << argv[0] << " -e \"Your message here.\"" << endl;
-    cout << "Usage to decrypt:  " << argv[0] << " -d \"Uwey tirrboi miyi.\"" << endl;
+    vector<string> temp = w.findCandidates("xyqbbq", "???mm?");
+    
+    for (int i = 0; i < temp.size(); i++)
+        cout << temp[i] << endl;
+    
     return 1;
 }
 

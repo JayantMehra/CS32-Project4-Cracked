@@ -41,7 +41,6 @@ private:
     node* *bucketArr;
     
     void resizeBucketArray();
-    std::string computeLetterPattern(const std::string s) const;
 };
 
 template<typename KeyType, typename ValueType>
@@ -152,14 +151,18 @@ void MyHash<KeyType, ValueType>::associate(const KeyType& key, const ValueType& 
      */
     
     unsigned int hash(const std::string& k);
-    unsigned int h = hash(computeLetterPattern(key))%buckets;
+    unsigned int h = hash(key)%buckets;
     
     node* temp = bucketArr[h];
     
     //  Check to see if the key already exists
     while (temp != nullptr) {
         if (temp->first == key) {
-            temp->second = value;
+            for (int i = 0; i < temp->second.size(); i++) {
+                if (temp->second[i] == value[0])
+                    return;
+            }
+            temp->second.push_back(value[0]);
             return;
         }
         temp = temp->next;
@@ -169,7 +172,7 @@ void MyHash<KeyType, ValueType>::associate(const KeyType& key, const ValueType& 
     
     if (getLoadFactor() > max_load_factor) {
         resizeBucketArray();
-        h = hash(computeLetterPattern(key))%buckets;
+        h = hash(key)%buckets;
     }
     
     node* newNode = new node;
@@ -186,11 +189,11 @@ const ValueType* MyHash<KeyType, ValueType>::find(const KeyType& key) const {
     /*
         The function finds the bucket in O(1) time using the hash function
         and it then loops over the linked list to find the required value.
-        If it is not find, it return the nullptr.
+        If it is not found, it return the nullptr.
     */
     
     unsigned int hash(const std::string& k);
-    unsigned int h = hash(computeLetterPattern(key))%buckets;
+    unsigned int h = hash(key)%buckets;
     
     node* temp = bucketArr[h];
     
@@ -217,7 +220,7 @@ void MyHash<KeyType, ValueType>::resizeBucketArray() {
     buckets *= 2;
     
     //  Initialize the new array
-    node* tempArray = new node*[buckets];
+    node* *tempArray = new node*[buckets];
     
     for (int i = 0; i < buckets; i++)
         tempArray[i] = nullptr;
@@ -232,7 +235,7 @@ void MyHash<KeyType, ValueType>::resizeBucketArray() {
         while (temp != nullptr) {
             
             unsigned int hash(const std::string& k);
-            unsigned int h = hash(computeLetterPattern(temp->first))%buckets;
+            unsigned int h = hash(temp->first)%buckets;
             
             node* newNode = new node;
             newNode->first = temp->first;
@@ -263,35 +266,5 @@ void MyHash<KeyType, ValueType>::resizeBucketArray() {
     bucketArr = tempArray;
 }
 
-template<typename KeyType, typename ValueType>
-std::string MyHash<KeyType, ValueType>::computeLetterPattern(const std::string s) const {
-    std::string k;
-    
-    if (s.size() > 0) {
-        
-        k += 'A';
-        char currentUniqueLetter = 'A';
-        
-        for (int i = 1; i < s.size(); i++) {
-            
-            if (s[i] == '\'') {
-                k += '\'';
-                continue;
-            }
-            
-            int j = 0;
-            for (j = 0; j <= i - 1; j++) {
-                if (tolower(s[i]) == tolower(s[j])) {
-                    k += k[j];
-                    break;
-                }
-                
-            }
-            
-            if (j == i)
-                k += ++currentUniqueLetter;
-        }
-    }
-    return k;
-}
+
 
