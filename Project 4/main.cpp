@@ -63,12 +63,20 @@ int main(int argc, char* argv[])
     WordList w;
     assert(w.loadWordList(WORDLIST_FILE));
     assert(w.contains("grotto"));
-    cout << "Passed All Tests." << endl;
+    
     
     vector<string> temp = w.findCandidates("xyqbbq", "???mm?");
     
     for (int i = 0; i < temp.size(); i++)
         cout << temp[i] << endl;
+    
+    Translator t;
+    t.pushMapping("DHL", "ERD");
+    assert(!t.pushMapping("QX", "RY"));
+    assert(t.getTranslation("HDX")=="RE?");
+    assert(!t.pushMapping("H", "S"));
+    
+    cout << "Passed All Tests." << endl;
     
     return 1;
 }
