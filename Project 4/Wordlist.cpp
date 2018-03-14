@@ -84,7 +84,7 @@ vector<string> WordListImpl::findCandidates(string cipherWord, string currTransl
         for (int i = 0; i < temp->size(); i++) {
             int j = 0;
             for (j = 0; j < currTranslation.size(); j++) {
-                if (isalpha(currTranslation[j]) && (*temp)[i][j] != currTranslation[j])
+                if (isalpha(currTranslation[j]) && tolower((*temp)[i][j]) != tolower(currTranslation[j]))
                     break;
             }
             if (j == currTranslation.size())

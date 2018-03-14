@@ -150,7 +150,7 @@ void MyHash<KeyType, ValueType>::associate(const KeyType& key, const ValueType& 
         exisiting one.
      */
     
-    unsigned int hash(const std::string& k);
+    unsigned int hash(const KeyType& k);
     unsigned int h = hash(key)%buckets;
     
     node* temp = bucketArr[h];
@@ -192,7 +192,7 @@ const ValueType* MyHash<KeyType, ValueType>::find(const KeyType& key) const {
         If it is not found, it return the nullptr.
     */
     
-    unsigned int hash(const std::string& k);
+    unsigned int hash(const KeyType& k);
     unsigned int h = hash(key)%buckets;
     
     node* temp = bucketArr[h];
@@ -234,7 +234,7 @@ void MyHash<KeyType, ValueType>::resizeBucketArray() {
         node* temp = bucketArr[i];
         while (temp != nullptr) {
             
-            unsigned int hash(const std::string& k);
+            unsigned int hash(const KeyType& k);
             unsigned int h = hash(temp->first)%buckets;
             
             node* newNode = new node;

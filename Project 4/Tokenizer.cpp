@@ -11,7 +11,6 @@ public:
     vector<string> tokenize(const std::string& s) const;
 private:
     unordered_map<char, int> m_separators;
-    mutable vector<string> words;
     
 };
 
@@ -25,12 +24,16 @@ TokenizerImpl::TokenizerImpl(string separators)
 
 vector<string> TokenizerImpl::tokenize(const std::string& s) const
 {
+    vector<string> words;
     string currentWord = "";
     for (int i = 0; i < s.size(); i++) {
+        int found = 0;
         if (m_separators.find(s[i]) == m_separators.end()) {
             currentWord += s[i];
         }
-        else {
+        
+        else if (m_separators.find(s[i]) != m_separators.end()){
+            found++;
             words.push_back(currentWord);
             currentWord = "";
             while (i < s.size() && m_separators.find(s[i]) != m_separators.end()) {
@@ -39,6 +42,9 @@ vector<string> TokenizerImpl::tokenize(const std::string& s) const
             if (i != s.size())
                 i--;
         }
+        
+        if (!found && i == s.size()-1)
+            words.push_back(currentWord);
     }
     return words;
 }
