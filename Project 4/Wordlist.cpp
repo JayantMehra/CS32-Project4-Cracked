@@ -42,6 +42,13 @@ bool WordListImpl::loadWordList(string filename)
         }
         
         if (i == word.size()) {
+            vector<string>* currentMapping = map.find(computeLetterPattern(word));
+            
+            if (currentMapping != nullptr) {
+                (*currentMapping).push_back(word);
+                map.associate(computeLetterPattern(word), *currentMapping);
+                continue;
+            }
             vector<string> temp;
             temp.push_back(word);
             map.associate(computeLetterPattern(word), temp);

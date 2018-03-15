@@ -3,6 +3,8 @@
 // Skeleton for the MyHash class template.  You must implement the first seven
 // member functions; we have implemented the eighth.
 
+#include <iostream>
+using namespace std;
 template<typename KeyType, typename ValueType>
 class MyHash
 {
@@ -156,6 +158,7 @@ void MyHash<KeyType, ValueType>::associate(const KeyType& key, const ValueType& 
     node* temp = bucketArr[h];
     
     //  Check to see if the key already exists
+    /*
     while (temp != nullptr) {
         if (temp->first == key) {
             for (int i = 0; i < temp->second.size(); i++) {
@@ -163,6 +166,15 @@ void MyHash<KeyType, ValueType>::associate(const KeyType& key, const ValueType& 
                     return;
             }
             temp->second.push_back(value[0]);
+            return;
+        }
+        temp = temp->next;
+    }
+    */
+    
+    while (temp != nullptr) {
+        if (temp->first == key) {
+            temp->second = value;
             return;
         }
         temp = temp->next;

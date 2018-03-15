@@ -145,7 +145,7 @@ using namespace std;
 // CHANGE TO false THE VARIABLES CORRESPONDING TO CLASSES YOU ARE *NOT*
 // YET READY TO TEST
 
-const bool shouldTestMyHash = false;
+const bool shouldTestMyHash = true;
 const bool shouldTestTokenizer = true;
 const bool shouldTestWordList = true;
 const bool shouldTestTranslator = true;
