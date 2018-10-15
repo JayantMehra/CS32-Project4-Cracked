@@ -68,7 +68,6 @@ bool WordListImpl::contains(string word) const
                 return true;
         }
     }
-    
     return false;
 }
 

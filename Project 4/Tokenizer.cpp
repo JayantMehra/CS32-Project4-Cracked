@@ -11,7 +11,6 @@ public:
     vector<string> tokenize(const std::string& s) const;
 private:
     unordered_map<char, int> m_separators;
-    
 };
 
 TokenizerImpl::TokenizerImpl(string separators)
